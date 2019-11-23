@@ -8,6 +8,11 @@
 			 ("melpa" . "https://melpa.org/packages/")))
 (package-initialize)
 
+(global-display-line-numbers-mode t)
+(column-number-mode t)
+(save-place-mode t) ;; remember place in files
+(global-display-fill-column-indicator-mode t)
+
 ;; Creates a custom file if not exists
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (unless (file-exists-p custom-file)
@@ -22,11 +27,6 @@
   (package-install 'use-package))
 
 (require 'package)
-
-(global-display-line-numbers-mode t)
-(column-number-mode t)
-(save-place-mode t) ;; remember place in files
-(global-display-fill-column-indicator-mode t)
 
 ;;----------------------------------------
 ;; git-gutter
@@ -81,3 +81,12 @@
 		(awk-mode . "awk")
 		(other . "linux")))
 
+;;----------------------------------------
+;; Dired
+;;
+(require 'dired)
+
+(define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
+(define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file "..")))
+
+(put 'dired-find-alternate-file 'disabled nil)

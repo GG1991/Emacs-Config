@@ -2,6 +2,7 @@
 elpa 
 custom.el
 places
+transient
 
 # Emacs files
 *~
