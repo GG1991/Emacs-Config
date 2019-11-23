@@ -19,35 +19,33 @@
   (write-region "" nil custom-file))
 (load custom-file)
 
+
 ;;----------------------------------------
 ;; use-package
 ;;
 (unless (package-installed-p 'use-package)
+  (require 'package)
   (package-refresh-contents)
   (package-install 'use-package))
 
-(require 'package)
 
 ;;----------------------------------------
 ;; git-gutter
 ;;
 (use-package git-gutter
   :ensure t
-  :init
+  :custom
+  (git-gutter:modified-sign "  ")
+  (git-gutter:added-sign "++")
+  (git-gutter:delete-sign "--")
   :config
   (git-gutter)
+  (global-git-gutter-mode t)
+  (set-face-background 'git-gutter:modified "purple")
+  (set-face-foreground 'git-gutter:added "green")
+  (set-face-foreground 'git-gutter:deleted "red")
   )
 
-(global-git-gutter-mode t)
-
-(custom-set-variables
- '(git-gutter:modified-sign "  ")
- '(git-gutter:added-sign "++")
- '(git-gutter:delete-sign "--"))
-
-(set-face-background 'git-gutter:modified "purple")
-(set-face-foreground 'git-gutter:added "green")
-(set-face-foreground 'git-gutter:deleted "red")
 
 ;;----------------------------------------
 ;; evil
@@ -58,15 +56,15 @@
   :config
   (evil-mode))
 
+
 ;;----------------------------------------
 ;; neotree
 ;;
 (use-package neotree
   :ensure t
-  :init
+  :bind ("<f8>" . neotree-toggle)
   )
 
-(global-set-key [f8] 'neotree-toggle)
 
 ;;----------------------------------------
 ;; C Indentation
@@ -80,6 +78,7 @@
 	      '((java-mode . "java")
 		(awk-mode . "awk")
 		(other . "linux")))
+
 
 ;;----------------------------------------
 ;; Dired
