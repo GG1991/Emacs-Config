@@ -14,6 +14,10 @@
 (save-place-mode t) ;; remember place in files
 (global-display-fill-column-indicator-mode t)
 
+(setq inhibit-startup-screen t
+      inhibit-startup-message t)
+
+
 ;; Creates a custom file if not exists
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (unless (file-exists-p custom-file)
@@ -91,9 +95,9 @@
   :config
   (setq ispell-dictionary "english")
   :bind (:map flyspell-mode-map
-  ("C-c f b" . flyspell-buffer)
-  ("C-c f r" . flyspell-region)
-  ("C-c f n" . flyspell-goto-next-error)
+	      ("C-c f b" . flyspell-buffer)
+	      ("C-c f r" . flyspell-region)
+	      ("C-c f n" . flyspell-goto-next-error)
   )
   )
 
