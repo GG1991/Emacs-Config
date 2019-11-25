@@ -3,6 +3,7 @@ elpa
 custom.el
 places
 transient
+LanguageTool*
 
 # Emacs files
 *~

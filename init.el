@@ -9,6 +9,7 @@
 (package-initialize)
 
 (global-display-line-numbers-mode t)
+(auto-fill-mode t)
 (column-number-mode t)
 (save-place-mode t) ;; remember place in files
 (global-display-fill-column-indicator-mode t)
@@ -80,6 +81,37 @@
 		(other . "linux")))
 
 
+;;----------------------------------------
+;; Flyspell
+;;
+(use-package flyspell
+  :ensure t
+  :hook ((prog-mode . flyspell-prog-mode)
+	 (text-mode . flyspell-mode))
+  :config
+  (setq ispell-dictionary "english")
+  :bind (:map flyspell-mode-map
+  ("C-c f b" . flyspell-buffer)
+  ("C-c f r" . flyspell-region)
+  ("C-c f n" . flyspell-goto-next-error)
+  )
+  )
+
+
+;;----------------------------------------
+;; Langtool
+;;
+(use-package langtool
+  :ensure t
+  :defer t
+  :config
+  (setq langtool-default-language "en")
+  (setq langtool-language-tool-jar "~/.emacs.d/LanguageTool-4.7/languagetool-commandline.jar")
+  :bind 
+  ("C-c l b" . langtool-check-buffer)
+  ("C-c l r" . langtool-check)
+  )
+  
 ;;----------------------------------------
 ;; Dired
 ;;
