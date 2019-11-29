@@ -58,6 +58,7 @@
 (use-package evil
   :ensure t
   :init
+  (setq evil-want-C-u-scroll t)
   :config
   (evil-mode))
 
@@ -114,6 +115,22 @@
   :bind 
   ("C-c l b" . langtool-check-buffer)
   ("C-c l r" . langtool-check)
+  )
+
+;;----------------------------------------
+;; Clip
+;;
+(use-package xclip
+  :ensure t
+  :config
+  (xclip-mode 1))
+
+;;----------------------------------------
+;; Mouse
+;;
+(use-package mouse
+  :config
+  (xterm-mouse-mode t)
   )
   
 ;;----------------------------------------
