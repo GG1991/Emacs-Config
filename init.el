@@ -11,6 +11,7 @@
 (global-display-line-numbers-mode t)
 (auto-fill-mode t)
 (column-number-mode t)
+(show-paren-mode t)
 (save-place-mode t) ;; remember place in files
 (global-display-fill-column-indicator-mode t)
 
@@ -32,6 +33,42 @@
   (require 'package)
   (package-refresh-contents)
   (package-install 'use-package))
+
+(eval-and-compile
+  (setq use-package-enable-imenu-support t)
+
+  (require 'use-package)
+
+   (if init-file-debug
+      (progn
+	(setq use-package-verbose t
+	      use-package-expand-minimally nil
+	      use-package-compute-statistics t
+	      debug-on-error t
+	))
+
+    (setq use-package-verbose nil
+	  use-package-expand-minimally t))
+)
+
+
+;;----------------------------------------
+;; CMake
+;;
+(use-package cmake-mode
+  :mode ("CMakeLists\\.txt\\'" "\\.cmake\(.in\)?\\'")
+  )
+
+(use-package cmake-font-lock
+  :ensure t
+  :preface
+  (defun my/cmake-font-lock ()
+    (cmake-font-lock-setup)
+    (font-lock-refresh-defaults))
+  :init
+  (add-hook 'cmake-mode-hook #'my/cmake-font-lock t)
+  ;;(add-hook 'cmake-mode-hook #'cmake-font-lock-activate)
+  )
 
 
 ;;----------------------------------------
@@ -91,8 +128,9 @@
 ;;
 (use-package flyspell
   :ensure t
-  :hook ((prog-mode . flyspell-prog-mode)
-	 (text-mode . flyspell-mode))
+  ;;:hook ((prog-mode . flyspell-prog-mode)
+  ;;	 (text-mode . flyspell-mode))
+  :hook (text-mode . flyspell-mode)
   :config
   (setq ispell-dictionary "english")
   :bind (:map flyspell-mode-map
